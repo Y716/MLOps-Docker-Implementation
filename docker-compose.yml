@@ -1,0 +1,19 @@
+# version: '3.8'
+
+services:
+  ml-app:
+    build:
+      context: .  # Build context set to current directory
+      dockerfile: Dockerfile
+    image: my-ml-model:latest
+    container_name: my-ml-container
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV=production
+      - MODEL_PATH=/app/model.joblib
+    volumes:
+      - .:/app
+    # depends_on:
+    #   - redis  # If you have additional services
+    restart: unless-stopped
